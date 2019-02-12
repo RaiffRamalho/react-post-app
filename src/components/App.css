@@ -31,3 +31,13 @@
     transform: rotate(360deg);
   }
 }
+
+.tabs {
+  flex-grow: 1;
+  background-color: #043b4b;
+  width: 100%;
+}
+
+.button-new-post {
+  float: right;
+}
