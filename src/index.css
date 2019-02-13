@@ -12,3 +12,63 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.dash {
+  flex-grow: 1;
+  width: 100%;
+}
+.tabs {
+  display: block !important;
+}
+
+.button-new-post {
+  float: left;
+  width: 100%;
+}
+
+ul {
+  display: inline-block;
+}
+
+.post {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+}
+
+.post-info {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: inherit;
+}
+
+.author {
+  float: left;
+}
+
+.date {
+  float: left;
+}
+
+.title {
+
+}
+
+.body {
+
+}
+
+.post-top-icons {
+ margin-left: auto;
+ cursor: pointer;
+}
+
+.post-down-icons {
+  margin-right: auto;
+}

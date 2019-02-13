@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 import Post from './Post'
 
-import Paper from '@material-ui/core/Paper';
+
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
 import Button from '@material-ui/core/Button';
-
+import {  } from 'react-icons/fa';
 
 function TabContainer(props) {
   return (
@@ -20,10 +20,20 @@ function TabContainer(props) {
   );
 }
 
+
 class Dashboard extends Component {
 
   state = {
     value: 0,
+    anchorEl: null,
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
   };
 
   handleChange = (event, value) => {
@@ -31,44 +41,47 @@ class Dashboard extends Component {
   };
 
   render() {
-
-    const { value } = this.state;
+    const { value, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
     return (
-      <div className="tabs">
-        <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange}>
-            <Tab value='0' label="Home" />
-            {
-              this.props.categories.map((category, index) => (
-                <Tab label={category.name} />
-                )
-              )
-            }
-          </Tabs>
-        </AppBar>
-          {/* {
-            this.props.categories.map((category, index) => (
-              value === index && <TabContainer>{category.name}</TabContainer>
-              )
+      <div className="dash">
+        <div className="tabs">
+          <AppBar position="static">
+            <Tabs value={value} onChange={this.handleChange}>
+              <Tab label="Home" />
+              {
+                this.props.categories.map((category, index) => (
+                  <Tab key={category.name} label={category.name} />
+                  )
+                  )
+                }
+            </Tabs>
+          </AppBar>
+        </div>
+        {/* {
+          this.props.categories.map((category, index) => (
+            value === index && <TabContainer>{category.name}</TabContainer>
             )
-          } */}
-          <Button variant="contained" className="button-new-post">
+          )
+        } */}
+        <div className="button-new-post">
+          <button variant="contained">
             New Post
-          </Button>
-          <ul>
-          {
-            
+          </button>
+        </div>
 
-           
-            this.props.posts.map((post) => (
-              <li key={post.id}>
-                 <Post id={post.id} />
-              </li>
-              )
-            )
-          }
-        </ul>
-        
+        <div>
+          <ul className='list-container' style={{listStyle: 'none'}}>
+            {
+              this.props.posts.map((post) => (
+                <li key={post.id}>
+                  <Post id={post.id} />
+                </li>
+                )
+                )
+            }
+          </ul>
+        </div>
       </div>
     )
   }
