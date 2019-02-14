@@ -65,7 +65,7 @@ class Dashboard extends Component {
           )
         } */}
         <div className="button-new-post">
-          <button variant="contained">
+          <button variant="contained" onClick={ (e) => {}} >
             New Post
           </button>
         </div>

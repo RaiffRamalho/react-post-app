@@ -1,6 +1,7 @@
+const api = process.env.REACT_APP_BACKEND ||  'http://localhost:3001';
+
 
 export function getInitialCategoryData () {
-  const api = process.env.REACT_APP_BACKEND ||  'http://localhost:3001';
   const url = `${api}/categories`;
 
   console.log('fetching from url', url);
@@ -17,13 +18,45 @@ export function getInitialCategoryData () {
 
 
 export function getInitialPostData () {
-  const api = process.env.REACT_APP_BACKEND ||  'http://localhost:3001';
   const url = `${api}/posts`;
 
   console.log('fetching from url', url);
   
   return new Promise((res, rej) => {
     fetch(url, { headers: { 'Authorization': 'whatever-you-want' }} )
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}
+
+function generateUID () {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+}
+
+function formatPost ({ title, body, author, category }) {
+  return {
+    id: generateUID(),
+    timestamp: Date.now(),
+    title,
+    body,
+    author,
+    category
+  }
+}
+
+export function savePost (info) {
+  const postInfo = formatPost(info);
+
+  const url = `${api}/posts`;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 'Authorization': 'whatever-you-want' },
+      method: "POST",
+      body: postInfo,
+      })
     .then( (response) => {
       return response.json();
     }).then(data => {

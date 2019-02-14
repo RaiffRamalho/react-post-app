@@ -5,6 +5,12 @@ import { FaEdit, FaTrash, FaRegStar, FaStar, FaRegCommentAlt } from 'react-icons
 
 
 class Post extends Component {
+
+  handleLike = (e) => {
+    e.preventDefault()
+    //hanfle like  
+  }
+
   render(){
     const { post } = this.props;
     const {
@@ -14,7 +20,7 @@ class Post extends Component {
       <div className='post'>
           <div className='post-info'>
           <div className='post-top-icons'>
-            <FaEdit />{' '}<FaTrash />
+            <FaEdit />{' '}<FaTrash onClick={this.handleDelete}/>
           </div>
             <div>
               <span className='author'>By: {author}</span>< br />
@@ -27,7 +33,7 @@ class Post extends Component {
             {' '}
             <span>{commentCount}</span>
             {' '}
-            <button>
+            <button onClick={this.handleLike}>
               {voteScore > 0 
                 ? <FaStar color='#ffcc00'/>
                 : <FaStar/>}

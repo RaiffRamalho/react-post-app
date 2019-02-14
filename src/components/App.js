@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { handleInitialCategoryData, handleInitialPostData } from '../actions/shared';
 
 import Dashboard from './Dashboard';
+import NewPost from './NewPost';
 
 class App extends Component {
 
@@ -22,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className="App App-header">
-        <Dashboard />
+        <NewPost />
       </div>
     );
   }
