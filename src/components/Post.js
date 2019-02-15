@@ -1,14 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/helpers'
-import { FaEdit, FaTrash, FaRegStar, FaStar, FaRegCommentAlt } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaStar, FaRegCommentAlt } from 'react-icons/fa';
+import { handleTogglePost, handleDeletePost } from '../actions/posts'
+
 
 
 class Post extends Component {
 
   handleLike = (e) => {
     e.preventDefault()
-    //hanfle like  
+    const { dispatch, post  } = this.props
+    dispatch(handleTogglePost({
+      id: post.id,
+    }))
+  }
+
+  handleDelete = (e) => {
+    e.preventDefault()
+    const { dispatch, post } = this.props
+    dispatch(handleDeletePost(post.id))
   }
 
   render(){

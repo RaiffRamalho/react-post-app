@@ -1,43 +1,19 @@
 import  React,  { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Post from './Post'
-
+import Category from './Category'
 
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-
-import Button from '@material-ui/core/Button';
-import {  } from 'react-icons/fa';
 
 import { NavLink } from 'react-router-dom'
-
-
-
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
 
 
 class Dashboard extends Component {
 
   state = {
     value: 0,
-    anchorEl: null,
-  };
-
-  handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
   };
 
   handleChange = (event, value) => {
@@ -45,50 +21,35 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { value, anchorEl } = this.state;
-    const open = Boolean(anchorEl);
+    const { value } = this.state;
     return (
       <div className="dash">
+      
         <div className="tabs">
           <AppBar position="static">
             <Tabs value={value} onChange={this.handleChange}>
-              <Tab label="Home" />
               {
-                this.props.categories.map((category, index) => (
+                this.props.categories.map((category) => (
                   <Tab key={category.name} label={category.name} />
-                  )
-                  )
+                  ))
                 }
             </Tabs>
           </AppBar>
         </div>
-        {/* {
+        <div className="button-new-post">
+          <NavLink to='/new' activeClassName='active'>
+            <button variant="contained" onClick={ (e) => {}} >
+              New Post
+            </button>
+          </NavLink>
+          
+        </div>
+        {
           this.props.categories.map((category, index) => (
-            value === index && <TabContainer>{category.name}</TabContainer>
+            value === index && <Category key={category.name} name={category.name}></Category>
             )
           )
-        } */}
-          <div className="button-new-post">
-            <NavLink to='/new' activeClassName='active'>
-              <button variant="contained" onClick={ (e) => {}} >
-                New Post
-              </button>
-            </NavLink>
-            
-          </div>
-
-        <div>
-          <ul className='list-container' style={{listStyle: 'none'}}>
-            {
-              this.props.posts.map((post) => (
-                <li key={post.id}>
-                  <Post id={post.id} />
-                </li>
-                )
-                )
-            }
-          </ul>
-        </div>
+        }
       </div>
     )
   }

@@ -1,7 +1,8 @@
-import { RECEIVE_POSTS, ADD_POST } from '../actions/posts'
+import { RECEIVE_POSTS, ADD_POST, DELETE_POST } from '../actions/posts'
 
 
 export default function posts (state = {}, action) {
+  const {post} = action;
   switch(action.type) {
     case RECEIVE_POSTS :
       return {
@@ -9,11 +10,14 @@ export default function posts (state = {}, action) {
         ...action.posts
       }
     case ADD_POST :
-      const {post} = action;
       return {
         ...state,
         [post.id]: post,
       }
+    case DELETE_POST :
+      return Object.values(state).filter((postItem) =>
+        (postItem.id !== post.id
+      ))
     default:
     return state
   }

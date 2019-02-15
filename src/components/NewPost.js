@@ -13,6 +13,7 @@ class NewPost extends Component {
     author:'',
     category:'',
     toHome: false,
+    categoryValid: false,
   }
 
   handleChangeTitle = (e) => {
@@ -28,9 +29,12 @@ class NewPost extends Component {
     }))
   }
   handleChangeCategory = (e) => {
-    const category = e.target.value
+    const category = e.target.value;
+    const contains = this.props.categories.indexOf(category) > -1;
+
     this.setState(() => ({
-      category
+      category,
+      categoryValid: contains
     }))
   }
   handleChangeAuthor = (e) => {
@@ -58,11 +62,11 @@ class NewPost extends Component {
 
   render(){
     
-    const {title, body, author, category, toHome } = this.state;
+    const {title, body, author, category, toHome, categoryValid } = this.state;
     if (toHome === true) {
       return <Redirect to='/' />
     }
-    const isEnabled = title.length > 0 && body.length > 0 && author.length > 0 && category.length > 0;
+    const isEnabled = title.length > 0 && body.length > 0 && author.length > 0 && category.length > 0 && categoryValid;
     return (
       <div>
 
@@ -75,9 +79,14 @@ class NewPost extends Component {
           />
           <input placeholder="Category"
             value={category}
-            onChange={this.handleChangeCategory}
+            onChange={                     
+              this.handleChangeCategory }
             className='input'  
-          />
+          /> {!categoryValid && (
+            <div className='category-validation'>
+              Category Invalid.
+            </div>
+          )}
           <textarea
             placeholder="What's happening?"
             value={body}
@@ -85,11 +94,6 @@ class NewPost extends Component {
             className='textarea'
             maxLength={280}
           />
-          {/* {tweetLeft <= 100 && (
-            <div className='tweet-length'>
-              {tweetLeft}
-            </div>
-          )} */}
 
           <input placeholder="Author"
             value={author}
@@ -109,4 +113,10 @@ class NewPost extends Component {
   }
 }
 
-export default connect()(NewPost)
+function mapStateToProps ({categories}){
+  return {
+    categories: Object.values(categories).map((category)=> (category.name)),
+  }
+}
+
+export default connect(mapStateToProps)(NewPost)

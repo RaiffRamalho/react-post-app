@@ -63,18 +63,44 @@ export function savePost (info) {
     .then( (response) => {
       return response.json();
     }).then(data => {
+      res (data)
+    });
+  })
+}
 
-      const storePost = {
-        id: postInfo.id,
-        timestamp: postInfo.timestamp,
-        title: postInfo.title,
-        body: postInfo.body,
-        author: postInfo.author,
-        category: postInfo.category,
-        commentCount: data.commentCount,
-        voteScore:data.voteScore,
-        deleted: data.deleted
-      }
+export function deletePost (id) {
+
+  const url = `${api}/posts` + '/' + id;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      method: "DELETE",
+      })
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}
+
+export function saveLikeToggle (id) {
+
+  const url = `${api}/posts` + '/' + id;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      method: "POST",
+      })
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
       res (data)
     });
   })
