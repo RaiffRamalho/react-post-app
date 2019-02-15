@@ -12,6 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {  } from 'react-icons/fa';
 
+import { NavLink } from 'react-router-dom'
+
+
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -64,11 +68,14 @@ class Dashboard extends Component {
             )
           )
         } */}
-        <div className="button-new-post">
-          <button variant="contained" onClick={ (e) => {}} >
-            New Post
-          </button>
-        </div>
+          <div className="button-new-post">
+            <NavLink to='/new' activeClassName='active'>
+              <button variant="contained" onClick={ (e) => {}} >
+                New Post
+              </button>
+            </NavLink>
+            
+          </div>
 
         <div>
           <ul className='list-container' style={{listStyle: 'none'}}>

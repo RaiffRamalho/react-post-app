@@ -1,6 +1,8 @@
-import React , { Component } from 'react'
-import { connect } from 'react-redux'
-import { handleAddPost } from '../actions/posts'
+import React , { Component } from 'react';
+import { connect } from 'react-redux';
+import { handleAddPost } from '../actions/posts';
+import { Redirect } from 'react-router-dom';
+
 
 
 class NewPost extends Component {
@@ -10,6 +12,7 @@ class NewPost extends Component {
     body:'',
     author:'',
     category:'',
+    toHome: false,
   }
 
   handleChangeTitle = (e) => {
@@ -49,12 +52,16 @@ class NewPost extends Component {
       body:'',
       author:'',
       category: '',
+      toHome: true,
     }))
   }
 
   render(){
-    /* todo: Redirect to / if submitted */
-    const {title, body, author, category } = this.state;
+    
+    const {title, body, author, category, toHome } = this.state;
+    if (toHome === true) {
+      return <Redirect to='/' />
+    }
     const isEnabled = title.length > 0 && body.length > 0 && author.length > 0 && category.length > 0;
     return (
       <div>

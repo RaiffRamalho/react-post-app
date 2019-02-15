@@ -29,22 +29,7 @@ export function handleAddPost (title, body, author, category) {
       author,
       category
     }).then((postResult) =>{
-
-      
-        const storePost = {
-          title: title,
-          body: body,
-          author: author,
-          category: category,
-          commentCount: postResult.commentCount,
-          voteScore:postResult.voteScore,
-          deleted: postResult.deleted
-          
-        }
-      
-      
-        dispatch(addPost(storePost))
-      
+        dispatch(addPost(postResult))
       }
       )
   }

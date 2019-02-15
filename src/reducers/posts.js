@@ -1,5 +1,6 @@
 import { RECEIVE_POSTS, ADD_POST } from '../actions/posts'
 
+
 export default function posts (state = {}, action) {
   switch(action.type) {
     case RECEIVE_POSTS :
@@ -8,9 +9,10 @@ export default function posts (state = {}, action) {
         ...action.posts
       }
     case ADD_POST :
-      const {post} = action
+      const {post} = action;
       return {
-        ...state.push(post),
+        ...state,
+        [post.id]: post,
       }
     default:
     return state

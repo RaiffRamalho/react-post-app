@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+// import Nav from './Nav'
+
 import './App.css';
 import { connect } from 'react-redux';
 import { handleInitialCategoryData, handleInitialPostData } from '../actions/shared';
@@ -22,9 +25,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App App-header">
-        <NewPost />
-      </div>
+      <Router>
+        {/* <Nav /> */}
+        <div className="App App-header">
+          <Route path='/' exact component={Dashboard} />
+          <Route path='/new' component={NewPost} />
+        </div>
+      </Router>
     );
   }
 }

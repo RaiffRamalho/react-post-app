@@ -53,13 +53,28 @@ export function savePost (info) {
   const url = `${api}/posts`;
   return new Promise((res, rej) => {
     fetch(url, {
-      headers: { 'Authorization': 'whatever-you-want' },
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
       method: "POST",
-      body: postInfo,
+      body: JSON.stringify(postInfo),
       })
     .then( (response) => {
       return response.json();
     }).then(data => {
+
+      const storePost = {
+        id: postInfo.id,
+        timestamp: postInfo.timestamp,
+        title: postInfo.title,
+        body: postInfo.body,
+        author: postInfo.author,
+        category: postInfo.category,
+        commentCount: data.commentCount,
+        voteScore:data.voteScore,
+        deleted: data.deleted
+      }
       res (data)
     });
   })
