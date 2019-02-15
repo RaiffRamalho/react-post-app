@@ -113,3 +113,7 @@ ul {
 .category-validation {
  float: right;
 }
+
+.bottom-icon {
+  cursor: pointer;
+}

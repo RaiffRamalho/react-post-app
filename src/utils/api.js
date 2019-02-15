@@ -87,9 +87,9 @@ export function deletePost (id) {
   })
 }
 
-export function saveLikeToggle (id) {
+export function saveVote (info) {
 
-  const url = `${api}/posts` + '/' + id;
+  const url = `${api}/posts` + '/' + info.id;
   return new Promise((res, rej) => {
     fetch(url, {
       headers: { 
@@ -97,6 +97,7 @@ export function saveLikeToggle (id) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'},
       method: "POST",
+      body: JSON.stringify({option: info.option})
       })
     .then( (response) => {
       return response.json();

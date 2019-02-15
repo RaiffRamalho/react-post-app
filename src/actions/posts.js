@@ -1,10 +1,10 @@
-import { savePost, deletePost, saveLikeToggle } from '../utils/api'
+import { savePost, deletePost, saveVote } from '../utils/api'
 
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ADD_POST = 'ADD_POSTS'
 export const DELETE_POST = 'DELETE_POST'
-export const TOGGLE_POST = 'TOGGLE_POST'
+export const VOTE_POST = 'VOTE_POST'
 
 
 export function receivePosts (posts) {
@@ -51,22 +51,24 @@ export function handleDeletePost (id) {
   }
 }
 
-function togglePost ({ id, hasLiked }) {
+function votePost ({ id, option, value }) {
   return {
-    type: TOGGLE_POST,
+    type: VOTE_POST,
     id,
-    hasLiked
+    option,
+    value
   }
 }
 
-export function handleTogglePost (info) {
+export function handleVotePost (info) {
   return (dispatch) => {
-    dispatch(togglePost(info))
+    
+    dispatch(votePost(info))
 
-    return saveLikeToggle(info)
+    return saveVote(info)
       .catch((e) => {
-        console.warn('Error in handleTogglePost: ', e)
-        dispatch(togglePost(info))
+        console.warn('Error in handleVotePost: ', e)
+        dispatch(votePost(info))
         alert('The was an error liking the Post. Try again.')
       })
   }

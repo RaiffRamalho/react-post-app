@@ -1,18 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/helpers'
-import { FaEdit, FaTrash, FaStar, FaRegCommentAlt } from 'react-icons/fa';
-import { handleTogglePost, handleDeletePost } from '../actions/posts'
+import { FaEdit, FaTrash, FaStar, FaRegCommentAlt, FaPlus, FaMinus } from 'react-icons/fa';
+import { handleVotePost, handleDeletePost } from '../actions/posts'
 
 
 
 class Post extends Component {
 
-  handleLike = (e) => {
+  handleUpVote = (e) => {
     e.preventDefault()
     const { dispatch, post  } = this.props
-    dispatch(handleTogglePost({
+    dispatch(handleVotePost({
       id: post.id,
+      option: 'upVote',
+      value: 1
+    }))
+  }
+
+  handleDownVote = (e) => {
+    e.preventDefault()
+    const { dispatch, post  } = this.props
+    dispatch(handleVotePost({
+      id: post.id,
+      option: 'downVote',
+      value: -1
     }))
   }
 
@@ -40,17 +52,17 @@ class Post extends Component {
               <p className='body'>{body}</p>
             </div>
           <div className='post-down-icons'>
-            <FaRegCommentAlt className='tweet-icon' />
+            <FaRegCommentAlt className='bottom-icon' />
             {' '}
             <span>{commentCount}</span>
             {' '}
-            <button onClick={this.handleLike}>
-              {voteScore > 0 
-                ? <FaStar color='#ffcc00'/>
-                : <FaStar/>}
-            </button>
+            <FaPlus className='bottom-icon' onClick={this.handleUpVote}/>
+            {' '}
+            {voteScore > 0 ? <FaStar color='#ffcc00'/> : voteScore < 0 ? <FaStar color='#ef0707' /> : <FaStar/>}
             {' '}
             <span>{voteScore}</span>
+            {' '}
+            <FaMinus className='bottom-icon' onClick={this.handleDownVote}/>
           </div>
         </div>
       </div>
