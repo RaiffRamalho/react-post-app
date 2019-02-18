@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { formatDate } from '../utils/helpers'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { formatDate } from '../utils/helpers';
 import { FaEdit, FaTrash, FaStar, FaRegCommentAlt, FaPlus, FaMinus } from 'react-icons/fa';
-import { handleVotePost, handleDeletePost } from '../actions/posts'
-
+import { handleVotePost, handleDeletePost } from '../actions/posts';
+import { NavLink } from 'react-router-dom';
 
 
 class Post extends Component {
@@ -43,7 +43,11 @@ class Post extends Component {
       <div className='post'>
           <div className='post-info'>
           <div className='post-top-icons'>
-            <FaEdit />{' '}<FaTrash onClick={this.handleDelete}/>
+            <NavLink style={{color:'white'}} to={{ pathname: '/new', state: { edit: true, post: post} }} >
+              <FaEdit />
+            </NavLink>
+            {' '}
+            <FaTrash onClick={this.handleDelete}/>
           </div>
             <div>
               <span className='author'>By: {author}</span>< br />

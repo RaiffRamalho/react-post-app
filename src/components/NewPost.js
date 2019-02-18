@@ -1,19 +1,24 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { handleAddPost } from '../actions/posts';
+import { handleAddPost, handleEditPost } from '../actions/posts';
 import { Redirect } from 'react-router-dom';
 
 
-
 class NewPost extends Component {
-  
-  state = {
-    title:'',
-    body:'',
-    author:'',
-    category:'',
-    toHome: false,
-    categoryValid: false,
+
+  constructor(props){
+    super(props);
+    this.state = {
+      id: this.props.location.state.post.id,
+      isEdit : this.props.location.state.edit,
+      title: this.props.location.state.post.title,
+      body: this.props.location.state.post.body,
+      author: this.props.location.state.post.author,
+      category: this.props.location.state.post.category,
+      toHome: false,
+      categoryValid: this.props.location.state.edit,
+    } 
+
   }
 
   handleChangeTitle = (e) => {
@@ -60,33 +65,63 @@ class NewPost extends Component {
     }))
   }
 
-  render(){
+  handleEdit = (e) => {
+    e.preventDefault()
+
+    const { id, title, body } = this.state;
+    const { dispatch } = this.props;
+
+    dispatch(handleEditPost(id, title, body));
+
+    this.setState(() => ({
+      id: '',
+      title:'',
+      body:'',
+      author:'',
+      category: '',
+      toHome: true,
+      categoryValid: false,
+    }))
+  }
+
+
+  render(){    
+
+    const {title, body, author, category, toHome, categoryValid, isEdit} = this.state;    
     
-    const {title, body, author, category, toHome, categoryValid } = this.state;
     if (toHome === true) {
       return <Redirect to='/' />
     }
+    
     const isEnabled = title.length > 0 && body.length > 0 && author.length > 0 && category.length > 0 && categoryValid;
+    
     return (
       <div>
-
-        <h3 className='center'>Compose new Post</h3>
-        <form className='new-post' onSubmit={this.handleSubmit}>
+        {!isEdit && (<h3 className='center'>Compose a new Post</h3>)}
+        {isEdit && (<h3 className='center'>Edit the Post</h3>)}
+        
+        <form className='new-post' onSubmit={(this.state.isEdit && this.handleEdit) || this.handleSubmit}>
           <input placeholder="Title"
             value={title}
             onChange={this.handleChangeTitle}
             className='input'  
           />
-          <input placeholder="Category"
-            value={category}
-            onChange={                     
-              this.handleChangeCategory }
-            className='input'  
-          /> {!categoryValid && (
+
+          {!isEdit && (
+              <input placeholder="Category"
+                value={category}
+                onChange={                     
+                  this.handleChangeCategory }
+                className='input'  
+              /> 
+          )}
+          
+          {!categoryValid && (
             <div className='category-validation'>
               Category Invalid.
             </div>
           )}
+
           <textarea
             placeholder="What's happening?"
             value={body}
@@ -94,12 +129,15 @@ class NewPost extends Component {
             className='textarea'
             maxLength={280}
           />
-
-          <input placeholder="Author"
+          
+          {!isEdit &&(
+            <input placeholder="Author"
             value={author}
             onChange={this.handleChangeAuthor}
             className='input'  
             />
+          )}
+          
           <button
             className='btn'
             type='submit'
@@ -114,6 +152,7 @@ class NewPost extends Component {
 }
 
 function mapStateToProps ({categories}){
+
   return {
     categories: Object.values(categories).map((category)=> (category.name)),
   }

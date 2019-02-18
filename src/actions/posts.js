@@ -1,10 +1,11 @@
-import { savePost, deletePost, saveVote } from '../utils/api'
+import { savePost, deletePost, saveVote, updatePost } from '../utils/api'
 
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const ADD_POST = 'ADD_POSTS'
 export const DELETE_POST = 'DELETE_POST'
 export const VOTE_POST = 'VOTE_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 
 export function receivePosts (posts) {
@@ -31,6 +32,26 @@ export function handleAddPost (title, body, author, category) {
       category
     }).then((postResult) =>{
         dispatch(addPost(postResult))
+      })
+  }
+}
+
+function editPost (post) {
+  return {
+    type: EDIT_POST,
+    post,
+  }
+}
+
+export function handleEditPost (id ,title, body) {
+  return (dispatch) => {
+
+    return updatePost({
+      id,
+      title,
+      body
+    }).then((putResult) =>{
+        dispatch(editPost(putResult))
       })
   }
 }

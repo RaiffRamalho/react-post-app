@@ -70,7 +70,9 @@ export function savePost (info) {
 
 export function deletePost (id) {
 
-  const url = `${api}/posts` + '/' + id;
+  const url = `${api}/posts` +
+                         '/' +
+                          id;
   return new Promise((res, rej) => {
     fetch(url, {
       headers: { 
@@ -89,7 +91,9 @@ export function deletePost (id) {
 
 export function saveVote (info) {
 
-  const url = `${api}/posts` + '/' + info.id;
+  const url = `${api}/posts` +
+                         '/' +
+                          info.id;
   return new Promise((res, rej) => {
     fetch(url, {
       headers: { 
@@ -98,6 +102,31 @@ export function saveVote (info) {
         'Content-Type': 'application/json'},
       method: "POST",
       body: JSON.stringify({option: info.option})
+      })
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}
+
+export function updatePost (info) {
+
+  const url = `${api}/posts` +
+                         '/' +
+                          info.id;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      method: "PUT",
+      body: JSON.stringify({
+        title: info.title,
+        body: info.body
+      })
       })
     .then( (response) => {
       return response.json();
