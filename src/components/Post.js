@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { formatDate } from '../utils/helpers';
-import { FaEdit, FaTrash, FaStar, FaRegCommentAlt, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaStar, FaRegCommentAlt, FaPlus, FaMinus, FaInfo } from 'react-icons/fa';
 import { handleVotePost, handleDeletePost } from '../actions/posts';
 import { NavLink } from 'react-router-dom';
 
@@ -43,6 +43,10 @@ class Post extends Component {
       <div className='post'>
           <div className='post-info'>
           <div className='post-top-icons'>
+            <NavLink style={{color:'white'}} to={{ pathname: '/postPage', state: { id: post.id} }}>
+              <FaInfo />
+            </NavLink>
+            {' '}
             <NavLink style={{color:'white'}} to={{ pathname: '/new', state: { edit: true, post: post} }} >
               <FaEdit />
             </NavLink>
@@ -56,7 +60,9 @@ class Post extends Component {
               <p className='body'>{body}</p>
             </div>
           <div className='post-down-icons'>
+          <NavLink style={{color:'white'}} to={{ pathname: '/postPage', state: { id: post.id} }} >
             <FaRegCommentAlt className='bottom-icon' />
+          </NavLink>
             {' '}
             <span>{commentCount}</span>
             {' '}

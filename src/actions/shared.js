@@ -1,6 +1,7 @@
-import { getInitialCategoryData, getInitialPostData } from '../utils/api'
-import { receiveCategories } from './categories'
-import { receivePosts } from './posts'
+import { getInitialCategoryData, getInitialPostData, getInitialCommentData } from '../utils/api';
+import { receiveCategories } from './categories';
+import { receivePosts } from './posts';
+import { receiveComments } from './comments';
 
 export function handleInitialCategoryData () {
   return (dispatch) => {
@@ -14,8 +15,16 @@ export function handleInitialCategoryData () {
 export function handleInitialPostData () {
   return (dispatch) => {
     return getInitialPostData()
-    .then((data)=>{
-      dispatch(receivePosts(data))
+    .then((posts)=>{
+      dispatch(receivePosts(posts));
+      
+      posts.forEach(post => {
+        getInitialCommentData(post.id).then((comments)=>{
+          dispatch(receiveComments(comments))
+        });
+      });
+
+
     })
   }
 }

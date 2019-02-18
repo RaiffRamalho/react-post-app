@@ -32,6 +32,24 @@ export function getInitialPostData () {
   })
 }
 
+export function getInitialCommentData (id) {
+  const url = `${api}/posts`+
+                        '/' +
+                        id  +
+                        '/comments';
+
+  console.log('fetching from url', url);
+  
+  return new Promise((res, rej) => {
+    fetch(url, { headers: { 'Authorization': 'whatever-you-want' }} )
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}
+
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
@@ -127,6 +145,49 @@ export function updatePost (info) {
         title: info.title,
         body: info.body
       })
+      })
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}
+
+export function deleteComment (id) {
+
+  const url = `${api}/comments` +
+                         '/' +
+                          id;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      method: "DELETE",
+      })
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}
+
+export function saveCommentVote (info) {
+
+  const url = `${api}/comments` +
+                         '/' +
+                          info.id;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      method: "POST",
+      body: JSON.stringify({option: info.option})
       })
     .then( (response) => {
       return response.json();

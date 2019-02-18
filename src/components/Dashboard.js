@@ -1,13 +1,15 @@
 import  React,  { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Category from './Category'
+import Category from './Category';
 
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
 
-import { NavLink } from 'react-router-dom'
+
+import { NavLink } from 'react-router-dom';
 
 
 class Dashboard extends Component {
@@ -38,9 +40,10 @@ class Dashboard extends Component {
         </div>
         <div className="button-new-post">
           <NavLink to='/new' activeClassName='active'>
-            <button variant="contained" onClick={ (e) => {}} >
+                
+            <Button  variant="contained" onClick={ (e) => {}} >
               New Post
-            </button>
+            </Button >
           </NavLink>
           
         </div>

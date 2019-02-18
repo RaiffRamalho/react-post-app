@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-// import Nav from './Nav'
 
 import './App.css';
 import { connect } from 'react-redux';
@@ -8,6 +7,7 @@ import { handleInitialCategoryData, handleInitialPostData } from '../actions/sha
 
 import Dashboard from './Dashboard';
 import NewPost from './NewPost';
+import PostPage from './PostPage';
 
 class App extends Component {
 
@@ -19,8 +19,8 @@ class App extends Component {
 
 
   componentDidMount() {
-    this.props.dispatch(handleInitialCategoryData())
-    this.props.dispatch(handleInitialPostData())
+    this.props.dispatch(handleInitialCategoryData());
+    this.props.dispatch(handleInitialPostData());
   }
 
   render() {
@@ -30,6 +30,7 @@ class App extends Component {
         <div className="App App-header">
           <Route path='/' exact component={Dashboard} />
           <Route path='/new' component={NewPost} />
+          <Route path='/postPage' component={PostPage} />
         </div>
       </Router>
     );
