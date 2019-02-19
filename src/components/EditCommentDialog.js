@@ -72,12 +72,12 @@ class EditCommentDialog extends Component {
               onClose={this.handleClose}
               aria-labelledby="form-dialog-title"
             >
-              <DialogTitle id="form-dialog-title">Add a Comment</DialogTitle>
+              <DialogTitle id="form-dialog-title">Edit Comment</DialogTitle>
               <DialogContent>
                   <TextField
                     margin="dense"
                     id="bodyComment"
-                    label="Comment here"
+                    label="Edit here"
                     type="text"
                     value={this.state.bodyComment}
                     fullWidth
