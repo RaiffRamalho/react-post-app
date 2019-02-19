@@ -1,8 +1,9 @@
-import { saveComment, deleteComment, saveCommentVote } from '../utils/api'
+import { saveComment, deleteComment, updateComment, saveCommentVote } from '../utils/api'
 
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const VOTE_COMMENT = 'VOTE_COMMENT';
 
 
@@ -29,6 +30,25 @@ export function handleAddComment (author, body, parentId) {
       parentId
     }).then((commentResult) =>{
         dispatch(addComment(commentResult))
+      })
+  }
+}
+
+function editComment (comment) {
+  return {
+    type: EDIT_COMMENT,
+    comment,
+  }
+}
+
+export function handleEditComment (id, body) {
+  return (dispatch) => {
+
+    return updateComment({
+      id,
+      body
+    }).then((putResult) =>{
+        dispatch(editComment(putResult))
       })
   }
 }

@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FaEdit, FaTrash, FaStar, FaPlus, FaMinus } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
 import { handleVoteComment, handleDeleteComment } from '../actions/comments';
 
-
-
 class Comment extends Component{
+
+  constructor(props) {
+    super(props);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
+
+  handleEdit(e, body) {
+    e.preventDefault();
+    const { comment  } = this.props
+    this.props.handleEdit(comment.id, body)
+  }
 
   handleUpVote = (e) => {
     e.preventDefault();
@@ -36,7 +44,7 @@ class Comment extends Component{
   }
   
   render(){
-    const { comment } = this.props;
+    const { comment, handleEdit } = this.props;
     const {
       author, body, voteScore
     } = comment
@@ -45,9 +53,7 @@ class Comment extends Component{
           <div className='post-info'>
             <div className='post-top-icons'>
               {' '}
-              <NavLink style={{color:'white'}} to={{ pathname: '/commentPage', state: { id: comment.id} }}>
-                <FaEdit />
-              </NavLink>
+              <FaEdit onClick={(e) => this.handleEdit(e, body)}/>
               {' '}
               <FaTrash onClick={this.handleDelete}/>
             </div>

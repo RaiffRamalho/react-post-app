@@ -227,3 +227,27 @@ export function saveCommentVote (info) {
     });
   })
 }
+
+export function updateComment (info) {
+
+  const url = `${api}/comments` +
+                         '/' +
+                          info.id;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      method: "PUT",
+      body: JSON.stringify({
+        body: info.body
+      })
+      })
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}

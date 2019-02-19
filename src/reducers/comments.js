@@ -1,4 +1,4 @@
-import { ADD_COMMENT, RECEIVE_COMMENTS, DELETE_COMMENT, VOTE_COMMENT } from '../actions/comments'
+import { ADD_COMMENT, RECEIVE_COMMENTS, DELETE_COMMENT, VOTE_COMMENT, EDIT_COMMENT } from '../actions/comments'
 
 
 export default function comments (state = {}, action) {
@@ -21,6 +21,10 @@ export default function comments (state = {}, action) {
       return Object.values(state).map((commentItem) => 
         commentItem.id !== action.id ? commentItem :
         Object.assign({}, commentItem, { voteScore: commentItem.voteScore+ action.value }))
+    case EDIT_COMMENT :
+        return Object.values(state).map((commentItem) => 
+          commentItem.id !== comment.id ? commentItem :
+          Object.assign({}, commentItem, { body: comment.body }))
     default:
     return state
   }

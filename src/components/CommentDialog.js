@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Post from './Post';
-import Comment from './Comment';
-import CommentDialog from './CommentDialog'
 
 import { handleAddComment, handleEditComment } from '../actions/comments';
 
@@ -16,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
-class PostPage extends Component {
+class CommentDialog extends Component {
 
   state = {
     open: false,
@@ -26,15 +22,6 @@ class PostPage extends Component {
     parentId: this.props.post.id,
     isCommentEdit: false
   };
-
-  handleEdit = (id, bodyComment) => {
-    this.setState(() => ({
-      commentId: id,
-      bodyComment: bodyComment,
-      isCommentEdit: true,
-      open: true
-    }))
-  }
 
   handleClickOpen = (e) => {
     e.preventDefault();
@@ -51,9 +38,17 @@ class PostPage extends Component {
     }))
   };
 
+  handleEdit = (id, bodyComment) => {
+    this.setState(() => ({
+      commentId: id,
+      bodyComment: bodyComment,
+      isCommentEdit: true,
+      open: true
+    }))
+  }
+
   handleSubmitComment = (e) => {
     e.preventDefault();
-    this.setState({ open: false });
     
     const { authorComment, bodyComment, parentId, isCommentEdit, commentId } = this.state;
     const { dispatch } = this.props;
@@ -68,7 +63,8 @@ class PostPage extends Component {
       commentId: '',
       bodyComment: '',
       authorComment: '',
-      isCommentEdit: false
+      isCommentEdit: false,
+      open: false
     }))
 
   };
@@ -87,20 +83,11 @@ class PostPage extends Component {
   };
 
   render() {
-
     const {authorComment, bodyComment, isCommentEdit} = this.state;
     const isEnabled = (authorComment.length > 0 && bodyComment.length > 0) || (isCommentEdit && bodyComment.length > 0);
 
     return (
       <div>
-        <h3>Post Details</h3>
-        <Post id={this.props.post.id} />
-
-        <ul className='list-container' style={{listStyle: 'none'}}>
-
-            {/* COMMENT CONTAINER */}
-
-            {/* <CommentDialog /> */}
             <Button variant="contained" onClick={this.handleClickOpen}>
               New Comment
             </Button><br/>
@@ -143,38 +130,10 @@ class PostPage extends Component {
                 </Button>
               </DialogActions>
             </Dialog>
-            {/* COMMENT CONTAINER */}
-            <hr></hr>
-            Comment List
-            {
-              this.props.postComments.map((comment) => (
-                <li key={comment.id}>
-                  <Comment id={comment.id} handleEdit={this.handleEdit} />
-                </li>
-                ))
-            }
-          </ul>
       </div>
     )
   }
 }
 
-function mapStateToProps (state, ownProps) {
 
-  const id = ownProps.location.state.id;
-
-  const post = Object.values(state.posts).filter((post) => ( 
-    post.id === id
-    ))[0];
-  const postComments = Object.values(state.comments).filter((comment) => ( 
-    comment.parentId === id
-    ));
-
-  return {
-    post: post,
-    postComments: postComments
-  }
-}
-
-
-export default connect(mapStateToProps)(PostPage)
+export default CommentDialog
