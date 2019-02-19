@@ -154,6 +154,37 @@ export function updatePost (info) {
   })
 }
 
+function formatComment ({ author, body, parentId }) {
+  return {
+    id: generateUID(),
+    timestamp: Date.now(),
+    author,
+    body,
+    parentId
+  }
+}
+
+export function saveComment (info) {
+  const commentInfo = formatComment(info);
+
+  const url = `${api}/comments`;
+  return new Promise((res, rej) => {
+    fetch(url, {
+      headers: { 
+        'Authorization': 'whatever-you-want',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      method: "POST",
+      body: JSON.stringify(commentInfo),
+      })
+    .then( (response) => {
+      return response.json();
+    }).then(data => {
+      res (data)
+    });
+  })
+}
+
 export function deleteComment (id) {
 
   const url = `${api}/comments` +

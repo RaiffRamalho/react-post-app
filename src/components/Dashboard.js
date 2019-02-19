@@ -39,9 +39,9 @@ class Dashboard extends Component {
           </AppBar>
         </div>
         <div className="button-new-post">
-          <NavLink to='/new' activeClassName='active'>
-                
-            <Button  variant="contained" onClick={ (e) => {}} >
+        
+          <NavLink to={{ pathname: '/new', state: { edit: false, post: {}} }}>
+            <Button  variant="contained" >
               New Post
             </Button >
           </NavLink>

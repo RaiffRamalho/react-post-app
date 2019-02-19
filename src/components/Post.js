@@ -43,7 +43,7 @@ class Post extends Component {
       <div className='post'>
           <div className='post-info'>
           <div className='post-top-icons'>
-            <NavLink style={{color:'white'}} to={{ pathname: '/postPage', state: { id: post.id} }}>
+            <NavLink style={{color:'white'}} to={{ pathname: '/postPage', state: { id: post.id} }} id={post.id}>
               <FaInfo />
             </NavLink>
             {' '}

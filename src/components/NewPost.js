@@ -8,15 +8,16 @@ class NewPost extends Component {
 
   constructor(props){
     super(props);
+    const edit = this.props.location.state.edit;
     this.state = {
-      id: this.props.location.state.post.id,
-      isEdit : this.props.location.state.edit,
-      title: this.props.location.state.post.title,
-      body: this.props.location.state.post.body,
-      author: this.props.location.state.post.author,
-      category: this.props.location.state.post.category,
+      id: !edit ? '' : this.props.location.state.post.id,
+      isEdit : edit,
+      title: !edit ? '' : this.props.location.state.post.title,
+      body: !edit ? '' : this.props.location.state.post.body,
+      author: !edit ? '' : this.props.location.state.post.author,
+      category: !edit ? '' : this.props.location.state.post.category,
       toHome: false,
-      categoryValid: this.props.location.state.edit,
+      categoryValid: edit,
     } 
 
   }

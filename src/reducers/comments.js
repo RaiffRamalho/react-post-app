@@ -1,13 +1,18 @@
-import { RECEIVE_COMMENTS, DELETE_COMMENT, VOTE_COMMENT } from '../actions/comments'
+import { ADD_COMMENT, RECEIVE_COMMENTS, DELETE_COMMENT, VOTE_COMMENT } from '../actions/comments'
 
 
-export default function posts (state = {}, action) {
+export default function comments (state = {}, action) {
   const {comment} = action;
   switch(action.type) {
     case RECEIVE_COMMENTS :
       return {
         ...state,
         ...action.comments
+      }
+    case ADD_COMMENT :
+      return {
+        ...state,
+        [comment.id]: comment,
       }
     case DELETE_COMMENT :
       return Object.values(state).filter((commentItem) =>

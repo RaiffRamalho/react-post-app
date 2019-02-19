@@ -5,10 +5,10 @@ export default function posts (state = {}, action) {
   const {post} = action;
   switch(action.type) {
     case RECEIVE_POSTS :
-    return {
-      ...state,
-      ...action.posts
-    }
+      return {
+        ...state,
+        ...action.posts
+      }
     case ADD_POST :
       return {
         ...state,
