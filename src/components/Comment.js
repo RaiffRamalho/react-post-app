@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FaEdit, FaTrash, FaStar, FaPlus, FaMinus } from 'react-icons/fa';
+import { FaTrash, FaStar, FaPlus, FaMinus } from 'react-icons/fa';
 import { handleVoteComment, handleDeleteComment } from '../actions/comments';
+import EditCommentDialog from './EditCommentDialog'
+
 
 class Comment extends Component{
 
   constructor(props) {
     super(props);
-    this.handleEdit = this.handleEdit.bind(this);
+    this.state = {
+      commentId: this.props.comment.id,
+      bodyComment: this.props.comment.body,
+    };
   }
+
+  handleClickOpen = (e) => {
+    e.preventDefault();
+    this.setState({ open: true });
+  };
 
   handleEdit(e, body) {
     e.preventDefault();
-    const { comment  } = this.props
+    const { comment  } = this.state
     this.props.handleEdit(comment.id, body)
   }
 
@@ -53,7 +63,10 @@ class Comment extends Component{
           <div className='post-info'>
             <div className='post-top-icons'>
               {' '}
-              <FaEdit onClick={(e) => this.handleEdit(e, body)}/>
+              <EditCommentDialog
+                bodyComment={this.state.bodyComment}
+                commentId={this.state.commentId}
+              />
               {' '}
               <FaTrash onClick={this.handleDelete}/>
             </div>
