@@ -109,3 +109,7 @@ ul {
 .bottom-icon {
   cursor: pointer;
 }
+
+.order-span-date, .order-span-vote {
+  cursor: pointer;
+}

@@ -3,6 +3,7 @@ import { RECEIVE_POSTS, ADD_POST, DELETE_POST, VOTE_POST, EDIT_POST } from '../a
 
 export default function posts (state = {}, action) {
   const {post} = action;
+  console.log("state",state);
   switch(action.type) {
     case RECEIVE_POSTS :
       return {

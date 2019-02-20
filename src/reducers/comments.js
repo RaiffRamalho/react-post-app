@@ -3,6 +3,7 @@ import { ADD_COMMENT, RECEIVE_COMMENTS, DELETE_COMMENT, VOTE_COMMENT, EDIT_COMME
 
 export default function comments (state = {}, action) {
   const {comment} = action;
+  console.log("state",state);
   switch(action.type) {
     case RECEIVE_COMMENTS :
       return {

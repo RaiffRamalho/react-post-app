@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import { handleAddComment } from '../actions/comments';
 
-
 import Button from '@material-ui/core/Button';
 
 import TextField from '@material-ui/core/TextField';
