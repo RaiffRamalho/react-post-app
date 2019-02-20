@@ -32,7 +32,6 @@ class Comment extends Component{
     dispatch(handleVoteComment({
       id: comment.id,
       option: 'upVote',
-      value: 1
     }))
   }
 
@@ -42,7 +41,6 @@ class Comment extends Component{
     dispatch(handleVoteComment({
       id: comment.id,
       option: 'downVote',
-      value: -1
     }))
     
   }

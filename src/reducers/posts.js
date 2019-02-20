@@ -20,7 +20,7 @@ export default function posts (state = {}, action) {
     case VOTE_POST :
       return Object.values(state).map((postItem) => 
         postItem.id !== action.id ? postItem :
-        Object.assign({}, postItem, { voteScore: postItem.voteScore+ action.value }))
+        Object.assign({}, postItem, { voteScore: action.option === 'upVote' ? postItem.voteScore + 1 : postItem.voteScore - 1 }))
     case EDIT_POST :
       return Object.values(state).map((postItem) => 
         postItem.id !== action.post.id ? postItem :

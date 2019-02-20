@@ -69,13 +69,12 @@ export function handleDeleteComment (id) {
   }
 }
 
-function voteComment ({ id, option, value }) {
+function voteComment ({ id, option }) {
   return {
     type: VOTE_COMMENT,
     id,
-    option,
-    value
-  }
+    option
+    }
 }
 
 export function handleVoteComment (info) {
@@ -86,7 +85,11 @@ export function handleVoteComment (info) {
     return saveCommentVote(info)
       .catch((e) => {
         console.warn('Error in handleVoteComment: ', e)
-        dispatch(voteComment(info))
+        const option = info.option === 'upVote' ? 'downVote' : 'upVote';
+        dispatch(voteComment(
+            info.id,
+            option
+          ))
         alert('The was an error liking the Comment. Try again.')
       })
   }

@@ -70,12 +70,11 @@ export function handleDeletePost (id) {
   }
 }
 
-function votePost ({ id, option, value }) {
+function votePost ({ id, option }) {
   return {
     type: VOTE_POST,
     id,
-    option,
-    value
+    option
   }
 }
 
@@ -86,8 +85,12 @@ export function handleVotePost (info) {
 
     return saveVote(info)
       .catch((e) => {
-        console.warn('Error in handleVotePost: ', e)
-        dispatch(votePost(info))
+        console.warn('Error in handleVotePost: ', e);
+        const option = info.option === 'upVote' ? 'downVote' : 'upVote';
+        dispatch(votePost(
+            info.id,
+            option
+          ))
         alert('The was an error liking the Post. Try again.')
       })
   }

@@ -20,7 +20,7 @@ export default function comments (state = {}, action) {
     case VOTE_COMMENT :
       return Object.values(state).map((commentItem) => 
         commentItem.id !== action.id ? commentItem :
-        Object.assign({}, commentItem, { voteScore: commentItem.voteScore+ action.value }))
+        Object.assign({}, commentItem, { voteScore: action.option === 'upVote' ? commentItem.voteScore + 1 : commentItem.voteScore - 1  }))
     case EDIT_COMMENT :
         return Object.values(state).map((commentItem) => 
           commentItem.id !== comment.id ? commentItem :
