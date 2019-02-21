@@ -110,6 +110,6 @@ ul {
   cursor: pointer;
 }
 
-.order-span-date, .order-span-vote {
+.order-span-date, .order-span-vote, .back {
   cursor: pointer;
 }

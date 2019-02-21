@@ -2,7 +2,7 @@ import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import { handleAddPost, handleEditPost } from '../actions/posts';
 import { Redirect } from 'react-router-dom';
-
+import { FaArrowLeft } from 'react-icons/fa';
 
 class NewPost extends Component {
 
@@ -19,7 +19,6 @@ class NewPost extends Component {
       toHome: false,
       categoryValid: edit,
     } 
-
   }
 
   handleChangeTitle = (e) => {
@@ -85,6 +84,10 @@ class NewPost extends Component {
     }))
   }
 
+  handleBack =() =>{
+    this.props.history.push(`/`);
+  }
+
 
   render(){    
 
@@ -98,9 +101,9 @@ class NewPost extends Component {
     
     return (
       <div>
+        <FaArrowLeft className='back' onClick={this.handleBack} />
         {!isEdit && (<h3 className='center'>Compose a new Post</h3>)}
         {isEdit && (<h3 className='center'>Edit the Post</h3>)}
-        
         <form className='new-post' onSubmit={(this.state.isEdit && this.handleEdit) || this.handleSubmit}>
           <input placeholder="Title"
             value={title}

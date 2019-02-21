@@ -8,22 +8,33 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 
-
 import { NavLink } from 'react-router-dom';
-
 
 class Dashboard extends Component {
 
-  state = {
-    value: 0,
-  };
+  constructor(props){
+    super(props);
+    const pathname  = this.props.location.pathname;
+    this.state = {
+      value: pathname === '/react' ? 1: pathname === '/redux'? 2: pathname === '/udacity' ? 3 : 0,
+    };
+    
+  }
 
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
+
+  handleSelect = (e, category) => {
+    e.preventDefault()
+    this.props.history.push(`/${category}`)
+  }
+
   render() {
     const { value } = this.state;
+    const pathname  = this.props.location.pathname;
+
     return (
       <div className="dash">
       
@@ -32,7 +43,7 @@ class Dashboard extends Component {
             <Tabs value={value} onChange={this.handleChange}>
               {
                 this.props.categories.map((category) => (
-                  <Tab key={category.name} label={category.name} />
+                  <Tab key={category.name} label={category.name} onClick={(e) => this.handleSelect(e, category.name)}/>
                   ))
                 }
             </Tabs>

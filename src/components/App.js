@@ -26,11 +26,14 @@ class App extends Component {
   render() {
     return (
       <Router>
-        {/* <Nav /> */}
         <div className="App App-header">
           <Route path='/' exact component={Dashboard} />
           <Route path='/new' component={NewPost} />
-          <Route path='/postPage' component={PostPage} />
+          <Route path='/home' exact component={Dashboard} />
+          <Route path='/react' exact component={Dashboard} />
+          <Route path='/redux' exact component={Dashboard} />
+          <Route path='/udacity' exact component={Dashboard} />
+          <Route path='/:category/:id' exact component={PostPage} />
         </div>
       </Router>
     );

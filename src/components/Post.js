@@ -37,13 +37,13 @@ class Post extends Component {
   render(){
     const { post } = this.props;
     const {
-      title, body, author, timestamp, commentCount, voteScore
+      title, body, author, timestamp, commentCount, voteScore, category
     } = post
     return (
       <div className='post'>
           <div className='post-info'>
           <div className='post-top-icons'>
-            <NavLink style={{color:'white'}} to={{ pathname: '/postPage', state: { id: post.id} }} id={post.id}>
+            <NavLink style={{color:'white'}} to={{ pathname: '/'+post.category+'/'+ post.id, state: { id: post.id} }} id={post.id}>
               <FaInfo />
             </NavLink>
             {' '}
@@ -60,9 +60,7 @@ class Post extends Component {
               <p className='body'>{body}</p>
             </div>
           <div className='post-down-icons'>
-          <NavLink style={{color:'white'}} to={{ pathname: '/postPage', state: { id: post.id} }} >
-            <FaRegCommentAlt className='bottom-icon' />
-          </NavLink>
+            <FaRegCommentAlt/>
             {' '}
             <span>{commentCount}</span>
             {' '}
